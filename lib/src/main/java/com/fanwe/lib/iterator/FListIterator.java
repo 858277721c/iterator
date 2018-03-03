@@ -11,10 +11,10 @@ public class FListIterator<T> implements FIterator<T>
     private List<T> mList;
     private List<T> mListCopy = new ArrayList<>();
 
-    private T mCurrent;
-    private int mIndex;
-
     private boolean mIsPositive;
+
+    private int mIndex;
+    private T mCurrent;
 
     public FListIterator(List<T> list)
     {
