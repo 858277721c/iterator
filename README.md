@@ -1,6 +1,11 @@
 # About
 支持正序遍历和倒序遍历的遍历器
 
+## Gradle
+[![](https://jitpack.io/v/zj565061763/iterator.svg)](https://jitpack.io/#zj565061763/iterator)
+
+## Demo
+
 ```java
 public class MainActivity extends AppCompatActivity
 {
