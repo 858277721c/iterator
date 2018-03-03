@@ -1,8 +1,6 @@
 package com.fanwe.lib.iterator;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -11,9 +9,12 @@ import java.util.List;
 public class FListIterator<T> implements FIterator<T>
 {
     private List<T> mList;
-    private List<T> mListCopy;
+    private List<T> mListCopy = new ArrayList<>();
 
-    private Iterator<T> mIterator;
+    private T mCurrent;
+    private int mIndex;
+
+    private boolean mIsPositive;
 
     public FListIterator(List<T> list)
     {
@@ -25,45 +26,48 @@ public class FListIterator<T> implements FIterator<T>
     {
         if (positive == null)
         {
-            mListCopy = null;
-            mIterator = null;
+            mListCopy.clear();
+            mCurrent = null;
             return;
         }
 
+        mListCopy.clear();
+        mListCopy.addAll(mList);
+
         if (positive)
         {
-            mIterator = mList.iterator();
+            mIndex = -1;
         } else
         {
-            if (mListCopy == null)
-            {
-                mListCopy = new ArrayList<>(mList);
-            } else
-            {
-                mListCopy.clear();
-                mListCopy.addAll(mList);
-            }
-
-            Collections.reverse(mListCopy);
-            mIterator = mListCopy.iterator();
+            mIndex = mList.size();
         }
+
+        mIsPositive = positive;
     }
 
     @Override
     public boolean hasNext()
     {
-        return mIterator.hasNext();
+        final int index = mIsPositive ? mIndex + 1 : mIndex - 1;
+        final boolean hasNext = index >= 0 && index < mListCopy.size();
+        if (!hasNext)
+        {
+            prepare(null);
+        }
+        return hasNext;
     }
 
     @Override
     public T next()
     {
-        return mIterator.next();
+        mIndex = mIsPositive ? mIndex + 1 : mIndex - 1;
+        mCurrent = mListCopy.get(mIndex);
+        return mCurrent;
     }
 
     @Override
     public void remove()
     {
-        mIterator.remove();
+        mList.remove(mCurrent);
     }
 }
