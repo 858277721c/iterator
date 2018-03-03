@@ -7,17 +7,17 @@ import java.util.List;
  */
 public class FListIterator<T> implements FIterator<T>
 {
-    private List<T> mList;
-    private Object[] mListCopy;
+    private List<T> mData;
+    private Object[] mDataCopy;
 
     private boolean mIsPositive;
 
     private int mIndex;
     private T mCurrent;
 
-    public FListIterator(List<T> list)
+    public FListIterator(List<T> data)
     {
-        mList = list;
+        mData = data;
     }
 
     @Override
@@ -25,19 +25,19 @@ public class FListIterator<T> implements FIterator<T>
     {
         if (positive == null)
         {
-            mListCopy = null;
+            mDataCopy = null;
             mCurrent = null;
             return;
         }
 
-        mListCopy = mList.toArray();
+        mDataCopy = mData.toArray();
 
         if (positive)
         {
             mIndex = -1;
         } else
         {
-            mIndex = mList.size();
+            mIndex = mData.size();
         }
         mIsPositive = positive;
     }
@@ -46,7 +46,7 @@ public class FListIterator<T> implements FIterator<T>
     public boolean hasNext()
     {
         final int index = mIsPositive ? mIndex + 1 : mIndex - 1;
-        final boolean hasNext = index >= 0 && index < mListCopy.length;
+        final boolean hasNext = index >= 0 && index < mDataCopy.length;
         if (!hasNext)
         {
             prepare(null);
@@ -58,13 +58,13 @@ public class FListIterator<T> implements FIterator<T>
     public T next()
     {
         mIndex = mIsPositive ? mIndex + 1 : mIndex - 1;
-        mCurrent = (T) mListCopy[mIndex];
+        mCurrent = (T) mDataCopy[mIndex];
         return mCurrent;
     }
 
     @Override
     public void remove()
     {
-        mList.remove(mCurrent);
+        mData.remove(mCurrent);
     }
 }
