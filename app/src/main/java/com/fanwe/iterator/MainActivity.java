@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity
 {
     public static final String TAG = MainActivity.class.getSimpleName();
 
-    private List<String> mList = new ArrayList<>();
+    private List<Integer> mList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -29,9 +29,9 @@ public class MainActivity extends AppCompatActivity
 
     private void fillList()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 10; i++)
         {
-            mList.add(String.valueOf(i));
+            mList.add(i);
         }
     }
 
@@ -40,14 +40,19 @@ public class MainActivity extends AppCompatActivity
      */
     private void doPositive(boolean log)
     {
-        FIterator<String> it = new FListIterator<>(mList);
+        FIterator<Integer> it = new FListIterator<>(mList);
         it.prepare(true); //准备正序遍历
         while (it.hasNext())
         {
-            String item = it.next();
+            Integer item = it.next();
             if (log)
             {
-                Log.i(TAG, item);
+                Log.i(TAG, String.valueOf(item));
+            }
+
+            if (item % 2 == 0)
+            {
+                it.remove(); //移除当前遍历到的对象
             }
         }
     }
@@ -57,14 +62,14 @@ public class MainActivity extends AppCompatActivity
      */
     private void doReverse(boolean log)
     {
-        FIterator<String> it = new FListIterator<>(mList);
+        FIterator<Integer> it = new FListIterator<>(mList);
         it.prepare(false); //准备倒序遍历
         while (it.hasNext())
         {
-            String item = it.next();
+            Integer item = it.next();
             if (log)
             {
-                Log.e(TAG, item);
+                Log.e(TAG, String.valueOf(item));
             }
         }
     }
