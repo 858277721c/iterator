@@ -23,8 +23,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         fillList();
-        doNext(true);
-        doPrevious(true);
+        doPositive(true);
+        doReverse(true);
     }
 
     private void fillList()
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity
     /**
      * 正序遍历
      */
-    private void doNext(boolean log)
+    private void doPositive(boolean log)
     {
         FIterator<String> it = new FListIterator<>(mList);
         it.prepare(true); //准备正序遍历
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity
     /**
      * 倒序遍历
      */
-    private void doPrevious(boolean log)
+    private void doReverse(boolean log)
     {
         FIterator<String> it = new FListIterator<>(mList);
         it.prepare(false); //准备倒序遍历

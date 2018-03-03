@@ -19,30 +19,32 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        for (int i = 0; i < 10; i++)
+        fillList();
+        doPositive(true);
+        doReverse(true);
+    }
+
+    private void fillList()
+    {
+        for (int i = 0; i < 5; i++)
         {
             mList.add(String.valueOf(i));
         }
-
-        doNext();
-        doPrevious();
     }
 
     /**
      * 正序遍历
      */
-    private void doNext()
+    private void doPositive(boolean log)
     {
         FIterator<String> it = new FListIterator<>(mList);
-        it.prepareNext(); //准备正序遍历
+        it.prepare(true); //准备正序遍历
         while (it.hasNext())
         {
             String item = it.next();
-            Log.i(TAG, item);
-
-            if (it.index() % 2 == 0)
+            if (log)
             {
-                it.remove(); //移除index被2整除的数据
+                Log.i(TAG, item);
             }
         }
     }
@@ -50,14 +52,17 @@ public class MainActivity extends AppCompatActivity
     /**
      * 倒序遍历
      */
-    private void doPrevious()
+    private void doReverse(boolean log)
     {
         FIterator<String> it = new FListIterator<>(mList);
-        it.preparePrevious(); //准备倒序遍历
-        while (it.hasPrevious())
+        it.prepare(false); //准备倒序遍历
+        while (it.hasNext())
         {
-            String item = it.previous();
-            Log.e(TAG, item);
+            String item = it.next();
+            if (log)
+            {
+                Log.e(TAG, item);
+            }
         }
     }
 }
