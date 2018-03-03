@@ -1,5 +1,6 @@
 # About
-支持正序遍历和倒序遍历的遍历器
+支持正序遍历和倒序遍历的遍历器<br>
+目前只有一个最常用List容器的实现类FListIterator
 
 ## Gradle
 [![](https://jitpack.io/v/zj565061763/iterator.svg)](https://jitpack.io/#zj565061763/iterator)
