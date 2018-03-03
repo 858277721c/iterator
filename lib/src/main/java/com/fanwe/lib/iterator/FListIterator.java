@@ -1,6 +1,5 @@
 package com.fanwe.lib.iterator;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,7 +8,7 @@ import java.util.List;
 public class FListIterator<T> implements FIterator<T>
 {
     private List<T> mList;
-    private List<T> mListCopy = new ArrayList<>();
+    private Object[] mListCopy;
 
     private boolean mIsPositive;
 
@@ -26,13 +25,12 @@ public class FListIterator<T> implements FIterator<T>
     {
         if (positive == null)
         {
-            mListCopy.clear();
+            mListCopy = null;
             mCurrent = null;
             return;
         }
 
-        mListCopy.clear();
-        mListCopy.addAll(mList);
+        mListCopy = mList.toArray();
 
         if (positive)
         {
@@ -41,7 +39,6 @@ public class FListIterator<T> implements FIterator<T>
         {
             mIndex = mList.size();
         }
-
         mIsPositive = positive;
     }
 
@@ -49,7 +46,7 @@ public class FListIterator<T> implements FIterator<T>
     public boolean hasNext()
     {
         final int index = mIsPositive ? mIndex + 1 : mIndex - 1;
-        final boolean hasNext = index >= 0 && index < mListCopy.size();
+        final boolean hasNext = index >= 0 && index < mListCopy.length;
         if (!hasNext)
         {
             prepare(null);
@@ -61,7 +58,7 @@ public class FListIterator<T> implements FIterator<T>
     public T next()
     {
         mIndex = mIsPositive ? mIndex + 1 : mIndex - 1;
-        mCurrent = mListCopy.get(mIndex);
+        mCurrent = (T) mListCopy[mIndex];
         return mCurrent;
     }
 
