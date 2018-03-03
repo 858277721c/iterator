@@ -3,6 +3,7 @@ package com.fanwe.iterator;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 
 import com.fanwe.lib.iterator.FIterator;
 import com.fanwe.lib.iterator.FListIterator;
@@ -22,30 +23,46 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        for (int i = 0; i < 10; i++)
+        findViewById(R.id.btn).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                long start = System.currentTimeMillis();
+                for (int i = 0; i < 10000; i++)
+                {
+                    doPrevious(false);
+                }
+                Log.e(TAG, "time:" + (System.currentTimeMillis() - start));
+            }
+        });
+
+        fillList();
+        doNext(true);
+        doPrevious(true);
+    }
+
+    private void fillList()
+    {
+        for (int i = 0; i < 20; i++)
         {
             mList.add(String.valueOf(i));
         }
-
-        doNext();
-        doPrevious();
     }
 
     /**
      * 正序遍历
      */
-    private void doNext()
+    private void doNext(boolean log)
     {
         FIterator<String> it = new FListIterator<>(mList);
-        it.prepareNext(); //准备正序遍历
+        it.prepare(true); //准备正序遍历
         while (it.hasNext())
         {
             String item = it.next();
-            Log.i(TAG, item);
-
-            if (it.index() % 2 == 0)
+            if (log)
             {
-                it.remove(); //移除index被2整除的数据
+                Log.i(TAG, item);
             }
         }
     }
@@ -53,14 +70,17 @@ public class MainActivity extends AppCompatActivity
     /**
      * 倒序遍历
      */
-    private void doPrevious()
+    private void doPrevious(boolean log)
     {
         FIterator<String> it = new FListIterator<>(mList);
-        it.preparePrevious(); //准备倒序遍历
-        while (it.hasPrevious())
+        it.prepare(false); //准备倒序遍历
+        while (it.hasNext())
         {
-            String item = it.previous();
-            Log.e(TAG, item);
+            String item = it.next();
+            if (log)
+            {
+                Log.e(TAG, item);
+            }
         }
     }
 }
