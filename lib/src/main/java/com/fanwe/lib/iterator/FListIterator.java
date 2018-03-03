@@ -1,37 +1,69 @@
 package com.fanwe.lib.iterator;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 /**
  * List遍历器
  */
-public class FListIterator<T> extends FAbstractIterator<T>
+public class FListIterator<T> implements FIterator<T>
 {
     private List<T> mList;
-    private List<T> mListOriginal;
+    private List<T> mListCopy;
+
+    private Iterator<T> mIterator;
 
     public FListIterator(List<T> list)
     {
-        mListOriginal = list;
-        mList = new ArrayList<>(list);
+        mList = list;
     }
 
     @Override
-    protected T get(int index)
+    public void prepare(Boolean positive)
     {
-        return mList.get(index);
+        if (positive == null)
+        {
+            mListCopy = null;
+            mIterator = null;
+            return;
+        }
+
+        if (positive)
+        {
+            mIterator = mList.iterator();
+        } else
+        {
+            if (mListCopy == null)
+            {
+                mListCopy = new ArrayList<>(mList);
+            } else
+            {
+                mListCopy.clear();
+                mListCopy.addAll(mList);
+            }
+
+            Collections.reverse(mListCopy);
+            mIterator = mListCopy.iterator();
+        }
     }
 
     @Override
-    protected void remove(int index)
+    public boolean hasNext()
     {
-        mListOriginal.remove(get(index));
+        return mIterator.hasNext();
     }
 
     @Override
-    protected int size()
+    public T next()
     {
-        return mList.size();
+        return mIterator.next();
+    }
+
+    @Override
+    public void remove()
+    {
+        mIterator.remove();
     }
 }

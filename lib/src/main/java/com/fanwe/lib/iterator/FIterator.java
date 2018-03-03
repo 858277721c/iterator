@@ -8,24 +8,28 @@ package com.fanwe.lib.iterator;
 public interface FIterator<T>
 {
     /**
-     * 准备正序遍历
+     * 准备遍历
+     *
+     * @param positive true-正序遍历，false-倒序遍历，null-重置
      */
-    FIterator<T> prepareNext();
+    void prepare(Boolean positive);
 
+    /**
+     * 是否有下一个对象
+     *
+     * @return
+     */
     boolean hasNext();
 
+    /**
+     * 返回下一个对象
+     *
+     * @return
+     */
     T next();
 
     /**
-     * 准备倒序遍历
+     * 移除当前对象
      */
-    FIterator<T> preparePrevious();
-
-    boolean hasPrevious();
-
-    T previous();
-
     void remove();
-
-    int index();
 }
