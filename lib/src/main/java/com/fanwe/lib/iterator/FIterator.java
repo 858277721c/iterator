@@ -32,9 +32,4 @@ public interface FIterator<T>
      * 移除当前对象
      */
     void remove();
-
-    /**
-     * 重置，重置后需要重新准备后才能遍历
-     */
-    void reset();
 }

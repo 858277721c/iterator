@@ -35,12 +35,7 @@ public class FListIterator<T> implements FIterator<T>
     @Override
     public boolean hasNext()
     {
-        final boolean hasNext = mIsPositive ? mIterator.hasNext() : mIterator.hasPrevious();
-        if (!hasNext)
-        {
-            reset();
-        }
-        return hasNext;
+        return mIsPositive ? mIterator.hasNext() : mIterator.hasPrevious();
     }
 
     @Override
@@ -53,11 +48,5 @@ public class FListIterator<T> implements FIterator<T>
     public void remove()
     {
         mIterator.remove();
-    }
-
-    @Override
-    public void reset()
-    {
-        mIterator = null;
     }
 }
