@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity
 
     private void fillList()
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 20; i++)
         {
             mList.add(i);
         }
@@ -35,18 +35,12 @@ public class MainActivity extends AppCompatActivity
     private void doPositive(boolean log)
     {
         FIterator<Integer> it = new FListIterator<>(mList);
-        it.prepare(true); //准备正序遍历
         while (it.hasNext())
         {
             Integer item = it.next();
             if (log)
             {
                 Log.i(TAG, String.valueOf(item));
-            }
-
-            if (item % 2 == 0)
-            {
-                it.remove(); //移除当前遍历到的对象
             }
         }
     }
@@ -57,7 +51,7 @@ public class MainActivity extends AppCompatActivity
     private void doReverse(boolean log)
     {
         FIterator<Integer> it = new FListIterator<>(mList);
-        it.prepare(false); //准备倒序遍历
+        it.prepare(false); //准备倒序遍历，true-正序遍历，false-倒序遍历，默认正序遍历
         while (it.hasNext())
         {
             Integer item = it.next();

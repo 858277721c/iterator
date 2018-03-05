@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity
     private void doReverse(boolean log)
     {
         FIterator<Integer> it = new FListIterator<>(mList);
-        it.prepare(false); //准备倒序遍历
+        it.prepare(false); //准备倒序遍历，true-正序遍历，false-倒序遍历，默认正序遍历
         while (it.hasNext())
         {
             Integer item = it.next();
