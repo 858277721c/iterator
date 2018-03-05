@@ -10,9 +10,9 @@ public interface FIterator<T>
     /**
      * 准备遍历
      *
-     * @param positive true-正序遍历，false-倒序遍历，null-重置
+     * @param positive true-正序遍历，false-倒序遍历
      */
-    void prepare(Boolean positive);
+    void prepare(boolean positive);
 
     /**
      * 是否有下一个对象
@@ -32,4 +32,9 @@ public interface FIterator<T>
      * 移除当前对象
      */
     void remove();
+
+    /**
+     * 重置，重置后需要重新准备后才能遍历
+     */
+    void reset();
 }

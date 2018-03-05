@@ -3,12 +3,14 @@ package com.fanwe.iterator;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 
 import com.fanwe.lib.iterator.FIterator;
 import com.fanwe.lib.iterator.FListIterator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -25,13 +27,50 @@ public class MainActivity extends AppCompatActivity
         fillList();
         doPositive(true);
         doReverse(true);
+
+        findViewById(R.id.btn).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                long start = System.currentTimeMillis();
+                for (int i = 0; i < 10000; i++)
+                {
+                    doPositive(false);
+                }
+                Log.i(TAG, "time:" + (System.currentTimeMillis() - start));
+            }
+        });
     }
 
     private void fillList()
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 20; i++)
         {
             mList.add(i);
+        }
+    }
+
+    private void doNormal(boolean log)
+    {
+        for (int i = 0, count = mList.size(); i < count; i++)
+        {
+            Integer item = mList.get(i);
+            if (log)
+            {
+                Log.i(TAG, String.valueOf(item));
+            }
+        }
+    }
+
+    private void doForeach(boolean log)
+    {
+        for (Integer item : mList)
+        {
+            if (log)
+            {
+                Log.i(TAG, String.valueOf(item));
+            }
         }
     }
 
@@ -48,11 +87,6 @@ public class MainActivity extends AppCompatActivity
             if (log)
             {
                 Log.i(TAG, String.valueOf(item));
-            }
-
-            if (item % 2 == 0)
-            {
-                it.remove(); //移除当前遍历到的对象
             }
         }
     }

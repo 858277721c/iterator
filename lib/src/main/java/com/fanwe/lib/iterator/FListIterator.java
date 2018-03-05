@@ -21,15 +21,8 @@ public class FListIterator<T> implements FIterator<T>
     }
 
     @Override
-    public void prepare(Boolean positive)
+    public void prepare(boolean positive)
     {
-        if (positive == null)
-        {
-            mDataCopy = null;
-            mCurrent = null;
-            return;
-        }
-
         mDataCopy = mData.toArray();
 
         if (positive)
@@ -49,7 +42,7 @@ public class FListIterator<T> implements FIterator<T>
         final boolean hasNext = index >= 0 && index < mDataCopy.length;
         if (!hasNext)
         {
-            prepare(null);
+            reset();
         }
         return hasNext;
     }
@@ -66,5 +59,12 @@ public class FListIterator<T> implements FIterator<T>
     public void remove()
     {
         mData.remove(mCurrent);
+    }
+
+    @Override
+    public void reset()
+    {
+        mDataCopy = null;
+        mCurrent = null;
     }
 }
