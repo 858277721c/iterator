@@ -1,11 +1,11 @@
-package com.fanwe.iterator;
+package com.sd.iterator;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.fanwe.lib.iterator.FIterator;
-import com.fanwe.lib.iterator.FListIterator;
+import com.sd.lib.iterator.FIterator;
+import com.sd.lib.iterator.FListIterator;
 
 import java.util.ArrayList;
 import java.util.List;
